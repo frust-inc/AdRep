@@ -26,6 +26,10 @@ WRITER:
             - impression
             - click
             - conversion
+            - ctr
+            - cvr
+            - cpc
+            - cpm
             - used_budget
         WRITE_HEADER: True
     AD_REPORT_GOOGLE_SPREAD_SHEET_WRITER:
@@ -33,11 +37,15 @@ WRITER:
         CREDENTIALS_PATH: "{dummy-credentials-path}"
         SHEET_ID: "{dummy-sheet-id}"
         SHEET_NAME: 広告費
-        SHEET_RANGE: A2:F
+        SHEET_RANGE: A2:J
         FIELDNAMES:
             - date
             - provider
             - impression
             - click
             - conversion
+            - ctr
+            - cvr
+            - cpc
+            - cpm
             - used_budget
