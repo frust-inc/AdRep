@@ -28,3 +28,11 @@ Run script.
 $ pipenv shell
 $ python scripts/run.py
 ```
+
+## Run test
+
+Run pytest and lint by flake8.
+
+```
+$ pytest --flake8
+```
