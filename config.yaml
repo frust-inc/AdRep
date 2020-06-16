@@ -1,0 +1,30 @@
+AD:
+    INPUT:
+        GOOGLE:
+            TOKEN: "{google-dummy-token}"
+        YAHOO:
+            TOKEN: "{yahoo-dummy-token}"
+        FACEBOOK:
+            TOKEN: "{facebook-dummy-token}"
+    OUTPUT:
+        WRITER: AD_REPORT_CSV_WRITER
+SHOP:
+    INPUT:
+        TAMAGO_REPEAT:
+            TOKEN: "{tamago-repeat-token}"
+    OUTPUT:
+        WRITER: STDOUT_WRITER
+WRITER:
+    STDOUT_WRITER:
+        TYPE: STDOUT
+    AD_REPORT_CSV_WRITER:
+        TYPE: CSV
+        PATH: ad_report.csv
+        FILEDNAMES:
+            - date
+            - provider
+            - impression
+            - click
+            - conversion
+            - used_budget
+        WRITE_HEADER: True
