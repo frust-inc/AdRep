@@ -12,6 +12,6 @@ class WriterBuilder():
             return StdOutWriter(config=self.config)
         if self.config["TYPE"] == "CSV":
             return CSVWriter(config=self.config)
-        if self.config["TYPE"] == "GoogleSpreadSheet":
+        if self.config["TYPE"] == "GOOGLE_SPREAD_SHEET":
             return GoogleSpreadSheetWriter(config=self.config)
         raise ValueError("invalid TYPE is specified.")
