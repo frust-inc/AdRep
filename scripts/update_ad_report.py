@@ -1,6 +1,6 @@
 from config import load_config
 from provider import GoogleAdSense  #, Facebook, Yahoo, TamagoRepeat
-from report import WriterBuilder
+from writer import WriterBuilder
 
 
 def main():
@@ -14,7 +14,7 @@ def main():
     reports = []
     for provider in providers:
         with provider.fetch() as response:
-            reports.append(response.to_dict())
+            reports += provider.build_reports(response.data, time='9:00')
 
     writer_conf = config['WRITER'][config['AD']['OUTPUT']['WRITER']]
     with WriterBuilder(config=writer_conf).build() as writer:

@@ -59,15 +59,16 @@ class GoogleSpreadSheetWriter(BaseWriter):
 
         return build('sheets', 'v4', credentials=creds)
 
-    def _format_values(self, values):
+    def _format(self, reports):
         formatted = []
-        for value in values:
+        for report in reports:
             # TODO: data validation
-            formatted.append([value[header] for header in self.fieldnames])
+            values = report.to_dict()
+            formatted.append([values[header] for header in self.fieldnames])
         return formatted
 
 
-    def write(self, values):
+    def write(self, reports):
         value_input_option = 'USER_ENTERED'
         insert_data_option = 'OVERWRITE'
 
@@ -86,7 +87,7 @@ class GoogleSpreadSheetWriter(BaseWriter):
             body={
                 "range": self.sheet_range,
                 "majorDimension": "ROWS",
-                "values": self._format_values(values),
+                "values": self._format(reports),
             },
         )
 

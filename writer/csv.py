@@ -25,9 +25,10 @@ class CSVWriter(BaseWriter):
         if 'WRITE_HEADER' in config:
             self.write_header = config['WRITE_HEADER']
 
-    def write(self, values):
+    def write(self, reports):
         with open(self.path, self.mode) as f:
             w = csv.DictWriter(f, fieldnames=self.fieldnames)
             if self.write_header:
                 w.writeheader()
-            w.writerows(values)
+            for report in reports:
+                w.writerow(report.to_dict())

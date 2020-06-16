@@ -1,19 +1,8 @@
 from abc import ABCMeta, abstractmethod
 
 
-class BaseWriter(metaclass=ABCMeta):
-    def __init__(self, config=None):
-        self.config = config
-
-    def __enter__(self):
-        return self
+class BaseReport(metaclass=ABCMeta):
 
     @abstractmethod
-    def write(self, values):
+    def to_dict(self):
         return
-
-    def close(self):
-        pass
-
-    def __exit__(self, exc_type, exc_value, traceback):
-        self.close()

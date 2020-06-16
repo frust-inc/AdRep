@@ -22,6 +22,7 @@ WRITER:
         PATH: ad_report.csv
         FILEDNAMES:
             - date
+            - time
             - provider
             - impression
             - click
@@ -37,9 +38,10 @@ WRITER:
         CREDENTIALS_PATH: "{dummy-credentials-path}"
         SHEET_ID: "{dummy-sheet-id}"
         SHEET_NAME: 広告費
-        SHEET_RANGE: A2:J
+        SHEET_RANGE: A2:H
         FIELDNAMES:
             - date
+            - time
             - provider
             - impression
             - click

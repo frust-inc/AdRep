@@ -1,6 +1,6 @@
 from config import load_config
 from provider import TamagoRepeat
-from report import WriterBuilder
+from writer import WriterBuilder
 
 
 def main():
@@ -13,7 +13,7 @@ def main():
     reports = []
     for shop in shops:
         with shop.fetch() as response:
-            shops.append(response.to_dict())
+            reports += shop.build_reports(response.data, time='9:00')
 
     writer_conf = config['WRITER'][config['AD']['OUTPUT']['WRITER']]
     with WriterBuilder(config=writer_conf).build() as writer:
