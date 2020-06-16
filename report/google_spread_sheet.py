@@ -11,7 +11,7 @@ SCOPES = ['https://www.googleapis.com/auth/spreadsheets']
 
 
 class GoogleSpreadSheetWriter(BaseWriter):
-    def __init__(self, config={}):
+    def __init__(self, config=None):
         super(GoogleSpreadSheetWriter, self).__init__(config=config)
 
         if "SHEET_ID" in config:

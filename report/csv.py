@@ -4,7 +4,7 @@ from .base import BaseWriter
 
 
 class CSVWriter(BaseWriter):
-    def __init__(self, config={}):
+    def __init__(self, config=None):
         super(CSVWriter, self).__init__(config=config)
 
         if 'PATH' in config:

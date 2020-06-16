@@ -2,7 +2,7 @@ from .base import BaseProvider, BaseAdResponse
 
 
 class GoogleAdSense(BaseProvider):
-    def __init__(self, config={}):
+    def __init__(self, config=None):
         super(GoogleAdSense, self).__init__(config=config)
 
     def fetch(self):

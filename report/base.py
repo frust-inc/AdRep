@@ -2,7 +2,7 @@ from abc import ABCMeta, abstractmethod
 
 
 class BaseWriter(metaclass=ABCMeta):
-    def __init__(self, config={}):
+    def __init__(self, config=None):
         self.config = config
 
     def __enter__(self):

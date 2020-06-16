@@ -4,7 +4,7 @@ from .google_spread_sheet import GoogleSpreadSheetWriter
 
 
 class WriterBuilder():
-    def __init__(self, config={}):
+    def __init__(self, config=None):
         self.config = config
 
     def build(self):
