@@ -2,7 +2,8 @@ from .base import BaseReport
 
 
 class AdReport(BaseReport):
-    def __init__(self, date='', time='', name='', impression=0, click=0, conversion=0, used_budget=0):
+    def __init__(self, date='', time='', name='', impression=0,
+                 click=0, conversion=0, used_budget=0):
         super(AdReport, self).__init__()
         self.name = name
         self.date = date

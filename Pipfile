@@ -10,6 +10,8 @@ pyyaml = "*"
 google-api-python-client = "*"
 google-auth-httplib2 = "*"
 google-auth-oauthlib = "*"
+pytest = "*"
+pytest-flake8 = "*"
 
 [requires]
 python_version = "3.7"

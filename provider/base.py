@@ -13,6 +13,7 @@ class BaseProvider(metaclass=ABCMeta):
     def build_reports(self):
         return []
 
+
 class BaseResponse(metaclass=ABCMeta):
     def __init__(self, status, data):
         self._status = status

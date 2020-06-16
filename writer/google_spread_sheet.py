@@ -67,7 +67,6 @@ class GoogleSpreadSheetWriter(BaseWriter):
             formatted.append([values[header] for header in self.fieldnames])
         return formatted
 
-
     def write(self, reports):
         value_input_option = 'USER_ENTERED'
         insert_data_option = 'OVERWRITE'
@@ -91,4 +90,4 @@ class GoogleSpreadSheetWriter(BaseWriter):
             },
         )
 
-        response = request.execute()
+        request.execute()

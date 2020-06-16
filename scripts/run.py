@@ -1,5 +1,5 @@
 from config import load_config
-from provider import GoogleAdSense  #, Facebook, Yahoo, TamagoRepeat
+from provider import GoogleAdSense
 from writer import WriterBuilder
 
 

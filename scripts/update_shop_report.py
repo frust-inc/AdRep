@@ -7,7 +7,7 @@ def main():
     config = load_config("config.yaml")
 
     shops = [
-        # TamagoRepeat(config=config['SHOP']['TAMAGO_REPEAT']),
+        TamagoRepeat(config=config['SHOP']['TAMAGO_REPEAT']),
     ]
 
     reports = []
