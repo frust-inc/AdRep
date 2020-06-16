@@ -1,4 +1,4 @@
-from .base import BaseProvider, BaseResponse
+from .base import BaseProvider, BaseAdResponse
 
 
 class GoogleAdSense(BaseProvider):
@@ -17,23 +17,5 @@ class GoogleAdSense(BaseProvider):
         )
 
 
-class GoogleAdSenseResponse(BaseResponse):
+class GoogleAdSenseResponse(BaseAdResponse):
     name = 'google'
-
-    def __init__(self, date, impression, click, conversion, used_budget):
-        super(GoogleAdSenseResponse, self).__init__()
-        self.date = date
-        self.impression = impression
-        self.click = click
-        self.conversion = conversion
-        self.used_budget = used_budget
-
-    def to_dict(self):
-        return {
-            'provider': GoogleAdSenseResponse.name,
-            'date': self.date,
-            'impression': self.impression,
-            'click': self.click,
-            'conversion': self.conversion,
-            'used_budget': self.used_budget,
-        }
