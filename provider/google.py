@@ -2,14 +2,14 @@ from .base import BaseProvider, BaseResponse
 from report import AdReport
 
 
-class GoogleAdSense(BaseProvider):
+class GoogleAds(BaseProvider):
     def __init__(self, config=None):
-        super(GoogleAdSense, self).__init__(config=config)
+        super(GoogleAds, self).__init__(config=config)
 
     def fetch(self):
         # Dummy
         # TODO: Fetch from actual data provider
-        return GoogleAdSenseResponse('ok', {
+        return GoogleAdsResponse('ok', {
             'date': '2020/06/01',
             'impression': 100000,
             'click': 1000,
@@ -31,6 +31,6 @@ class GoogleAdSense(BaseProvider):
         ]
 
 
-class GoogleAdSenseResponse(BaseResponse):
+class GoogleAdsResponse(BaseResponse):
     def __init__(self, status, data):
-        super(GoogleAdSenseResponse, self).__init__(status, data)
+        super(GoogleAdsResponse, self).__init__(status, data)

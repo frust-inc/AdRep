@@ -1,5 +1,5 @@
 from config import load_config
-from provider import GoogleAdSense
+from provider import GoogleAds
 from writer import WriterBuilder
 
 
@@ -11,7 +11,7 @@ def main():
 
 def fetch_and_update_ad_report(config):
     providers = [
-        GoogleAdSense(config=config['AD']['INPUT']['GOOGLE']),
+        GoogleAds(config=config['AD']['INPUT']['GOOGLE']),
         # Facebook(config=config['AD']['FACEBOOK']),
         # Yahoo(config=config['AD']['YAHOO']),
     ]

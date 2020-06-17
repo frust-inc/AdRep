@@ -1,3 +1,3 @@
-from .google import GoogleAdSense
+from .google import GoogleAds
 
-__all__ = ['GoogleAdSense']
+__all__ = ['GoogleAds']

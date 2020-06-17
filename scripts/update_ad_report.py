@@ -1,12 +1,12 @@
 from config import load_config
-from provider import GoogleAdSense
+from provider import GoogleAds
 from writer import WriterBuilder
 
 
 def main():
     config = load_config("config.yaml")
     providers = [
-        GoogleAdSense(config=config['AD']['INPUT']['GOOGLE']),
+        GoogleAds(config=config['AD']['INPUT']['GOOGLE']),
         # Facebook(config=config['AD']['FACEBOOK']),
         # Yahoo(config=config['AD']['YAHOO']),
     ]
