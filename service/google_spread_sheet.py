@@ -22,6 +22,18 @@ class GoogleSpreadSheetService(BaseGoogleService):
             }
         ).execute()
 
+    def delete_sheet(self, spreadsheet_id, sheet_id):
+        return self.service.spreadsheets().batchUpdate(
+            spreadsheetId=spreadsheet_id,
+            body={
+                'requests': [{
+                    'deleteSheet': {
+                        'sheetId': sheet_id,
+                    }
+                }]
+            }
+        ).execute()
+
     def list_sheets(self, spreadsheet_id):
         meta = self.service.spreadsheets().get(spreadsheetId=spreadsheet_id).execute()
         return meta.get('sheets', '')
