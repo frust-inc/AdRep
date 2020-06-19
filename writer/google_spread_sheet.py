@@ -1,23 +1,20 @@
-import pickle
-import os.path
-from googleapiclient.discovery import build
-from google_auth_oauthlib.flow import InstalledAppFlow
-from google.auth.transport.requests import Request
-
 from .base import BaseWriter
-
-# If modifying these scopes, delete the file token.pickle.
-SCOPES = ['https://www.googleapis.com/auth/spreadsheets']
+from service import GoogleSpreadSheetService, GoogleDriveService
 
 
 class GoogleSpreadSheetWriter(BaseWriter):
     def __init__(self, config=None):
         super(GoogleSpreadSheetWriter, self).__init__(config=config)
 
-        if "SHEET_ID" in config:
-            self.sheet_id = config["SHEET_ID"]
+        if "FOLDER_ID" in config:
+            self.folder_id = config["FOLDER_ID"]
         else:
-            raise ValueError("SHEET_ID must be specified.")
+            raise ValueError("FOLDER_ID must be specified.")
+
+        if "SPREADSHEET_NAME" in config:
+            self.spreadsheet_name = config["SPREADSHEET_NAME"]
+        else:
+            raise ValueError("SPREADSHEET_NAME must be specified.")
 
         if "SHEET_NAME" in config:
             self.sheet_name = config["SHEET_NAME"]
@@ -39,27 +36,21 @@ class GoogleSpreadSheetWriter(BaseWriter):
         else:
             raise ValueError("FIELDNAMES must be specified.")
 
-    def _build_service(self):
-        creds = None
-        if os.path.exists('token.pickle'):
-            with open('token.pickle', 'rb') as token:
-                creds = pickle.load(token)
+        if "HEADERS" in config:
+            self.headers = config["HEADERS"]
+        else:
+            raise ValueError("HEADERS must be specified.")
 
-        # If there are no (valid) credentials available, let the user log in.
-        if not creds or not creds.valid:
-            if creds and creds.expired and creds.refresh_token:
-                creds.refresh(Request())
-            else:
-                flow = InstalledAppFlow.from_client_secrets_file(
-                    self.credentials_path, SCOPES)
-                creds = flow.run_local_server(port=0)
-            # Save the credentials for the next run
-            with open('token.pickle', 'wb') as token:
-                pickle.dump(creds, token)
+        self.value_input_option = 'USER_ENTERED'
+        self.insert_data_option = 'OVERWRITE'
 
-        return build('sheets', 'v4', credentials=creds)
+        self.sheet_service = GoogleSpreadSheetService(self.credentials_path)
+        self.drive_service = GoogleDriveService(self.credentials_path)
 
-    def _format(self, reports):
+    def _headers(self):
+        return [self.headers[key] for key in self.fieldnames]
+
+    def _values(self, reports):
         formatted = []
         for report in reports:
             # TODO: data validation
@@ -68,26 +59,23 @@ class GoogleSpreadSheetWriter(BaseWriter):
         return formatted
 
     def write(self, reports):
-        value_input_option = 'USER_ENTERED'
-        insert_data_option = 'OVERWRITE'
+        files = self.drive_service.get_file(self.spreadsheet_name, parents=[self.folder_id])
+        if not files:
+            # if spreadsheet does not exist, create it.
+            sheet = self.drive_service.create_spreadsheet(self.spreadsheet_name,
+                                                          parents=[self.folder_id])
+        else:
+            sheet = files[0]
+        sheet_id = sheet['id']
+        print(sheet_id)
 
-        service = self._build_service()
+        if not self.sheet_service.get_sheet_by_name(sheet['id'], self.sheet_name):
+            # if sheet does not exist, add it.
+            self.sheet_service.add_sheet(sheet['id'], self.sheet_name)
+            # insert header
+            self.sheet_service.insert_rows(sheet_id, self.sheet_range, self.value_input_option,
+                                           self.insert_data_option, [self._headers()])
 
-        # TODO: process if beginning of the month
-        #       - create sheet
-        #       - insert header
-
-        # Call the Sheets API
-        request = service.spreadsheets().values().append(
-            spreadsheetId=self.sheet_id,
-            range=self.sheet_range,
-            valueInputOption=value_input_option,
-            insertDataOption=insert_data_option,
-            body={
-                "range": self.sheet_range,
-                "majorDimension": "ROWS",
-                "values": self._format(reports),
-            },
-        )
-
-        request.execute()
+        # insert values
+        self.sheet_service.insert_rows(sheet_id, self.sheet_range, self.value_input_option,
+                                       self.insert_data_option, self._values(reports))

@@ -139,6 +139,8 @@ cython_debug/
 
 # GoogleSpreadSheet token
 token.pickle
+drive.token.pickle
+sheets.token.pickle
 
 # config in actual env
 config.yaml
