@@ -5,6 +5,8 @@ AD:
             CLIENT_SECRET: "{dummy}"
             REFRESH_TOKEN: "{dummy}"
             DEVELOPER_TOKEN: "{dummy}"
+            MCC_CUSTOMER_ID: "{dummy}"
+            CLIENT_CUSTOMER_ID: "{dummy}"
         YAHOO:
             TOKEN: "{yahoo-dummy-token}"
         FACEBOOK:
