@@ -62,7 +62,7 @@ class GoogleSpreadSheetWriter(BaseWriter):
         return formatted
 
     def write(self, reports):
-        files = self.drive_service.get_file(self.spreadsheet_name, parents=[self.folder_id])
+        files = self.drive_service.get_file_by_name(self.spreadsheet_name, parents=[self.folder_id])
         if not files:
             # if spreadsheet does not exist, create it.
             sheet = self.drive_service.create_spreadsheet(self.spreadsheet_name,
