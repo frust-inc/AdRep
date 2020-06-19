@@ -36,9 +36,10 @@ WRITER:
     AD_REPORT_GOOGLE_SPREAD_SHEET_WRITER:
         TYPE: GOOGLE_SPREAD_SHEET
         CREDENTIALS_PATH: "{dummy-credentials-path}"
-        SHEET_ID: "{dummy-sheet-id}"
+        FOLDER_ID: "{dummy-folder-id}"
+        SPREADSHEET_NAME: 広告費・売上レポート_{YYYY}_{MM}
         SHEET_NAME: 広告費
-        SHEET_RANGE: A2:H
+        SHEET_RANGE: A1:H
         FIELDNAMES:
             - date
             - time
@@ -51,3 +52,15 @@ WRITER:
             - cpc
             - cpm
             - used_budget
+        HEADERS:
+            date: 配信日
+            time: 集計時間
+            provider: 媒体
+            impression: インプレッション数
+            click: クリック数
+            conversion: コンバージョン数
+            ctr: クリック率
+            cvr: コンバージョン率
+            cpc: クリック単価
+            cpm: インプレッション単価
+            used_budget: 消化予算
