@@ -1,3 +1,5 @@
+from datetime import datetime
+
 from .base import BaseWriter
 from service import GoogleSpreadSheetService, GoogleDriveService
 
@@ -12,7 +14,8 @@ class GoogleSpreadSheetWriter(BaseWriter):
             raise ValueError("FOLDER_ID must be specified.")
 
         if "SPREADSHEET_NAME" in config:
-            self.spreadsheet_name = config["SPREADSHEET_NAME"]
+            now = datetime.now()
+            self.spreadsheet_name = now.strftime(config["SPREADSHEET_NAME"])
         else:
             raise ValueError("SPREADSHEET_NAME must be specified.")
 
@@ -67,7 +70,6 @@ class GoogleSpreadSheetWriter(BaseWriter):
         else:
             sheet = files[0]
         sheet_id = sheet['id']
-        print(sheet_id)
 
         if not self.sheet_service.get_sheet_by_name(sheet['id'], self.sheet_name):
             # if sheet does not exist, add it.
@@ -75,7 +77,6 @@ class GoogleSpreadSheetWriter(BaseWriter):
             # insert header
             self.sheet_service.insert_rows(sheet_id, self.sheet_range, self.value_input_option,
                                            self.insert_data_option, [self._headers()])
-
         # insert values
         self.sheet_service.insert_rows(sheet_id, self.sheet_range, self.value_input_option,
                                        self.insert_data_option, self._values(reports))
