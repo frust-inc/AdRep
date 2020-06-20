@@ -77,8 +77,9 @@ class GoogleSpreadSheetWriter(BaseWriter):
             # insert header
             self.sheet_service.insert_rows(sheet_id, self.sheet_range, self.value_input_option,
                                            self.insert_data_option, [self._headers()])
-            # delete default sheet
-            self.sheet_service.delete_sheet(sheet_id, 0)
+            if self.sheet_service.get_sheet(sheet['id'], 0):
+                # if default sheet exists, delete it
+                self.sheet_service.delete_sheet(sheet_id, 0)
 
         # insert values
         self.sheet_service.insert_rows(sheet_id, self.sheet_range, self.value_input_option,

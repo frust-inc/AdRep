@@ -45,6 +45,13 @@ class GoogleSpreadSheetService(BaseGoogleService):
                 return sheet
         return None
 
+    def get_sheet(self, spreadsheet_id, sheet_id):
+        sheets = self.list_sheets(spreadsheet_id)
+        for sheet in sheets:
+            if sheet['properties']['sheetId'] == sheet_id:
+                return sheet
+        return None
+
     def insert_rows(self, spreadsheet_id, sheet_range, value_input_option, insert_data_option,
                     rows):
         request = self.service.spreadsheets().values().append(
