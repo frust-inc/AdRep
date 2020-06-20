@@ -17,7 +17,8 @@ class GoogleDriveService(BaseGoogleService):
         while True:
             # Call the Drive v3 API
             results = self.service.files().list(
-                q=query, pageSize=10, pageToken=page_token, fields="nextPageToken, files(id, name)").execute()
+                q=query, pageSize=10, pageToken=page_token,
+                fields="nextPageToken, files(id, name)").execute()
             files += results.get('files', [])
             page_token = results.get('nextPageToken')
             if not page_token:

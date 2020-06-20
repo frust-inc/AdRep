@@ -1,12 +1,12 @@
 from config import load_config
-from provider import GoogleAds
+from provider import GoogleAds, TamagoRepeat
 from writer import WriterBuilder
 
 
 def main():
     config = load_config("config.yaml")
     fetch_and_update_ad_report(config)
-    # fetch_and_update_shop_report(config)
+    fetch_and_update_shop_report(config)
 
 
 def fetch_and_update_ad_report(config):
@@ -28,15 +28,15 @@ def fetch_and_update_ad_report(config):
 
 def fetch_and_update_shop_report(config):
     shops = [
-        # TamagoRepeat(config=config['SHOP']['TAMAGO_REPEAT']),
+        TamagoRepeat(config=config['SHOP']['INPUT']['TAMAGO_REPEAT']),
     ]
 
     reports = []
     for shop in shops:
         with shop.fetch() as response:
-            reports += shop.build_reports(response.data)
+            reports += shop.build_reports(response.data, time='9:00')
 
-    writer_conf = config['WRITER'][config['AD']['OUTPUT']['WRITER']]
+    writer_conf = config['WRITER'][config['SHOP']['OUTPUT']['WRITER']]
     with WriterBuilder(config=writer_conf).build() as writer:
         writer.write(reports)
 

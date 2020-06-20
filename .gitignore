@@ -144,3 +144,7 @@ sheets.token.pickle
 
 # config in actual env
 config.yaml
+
+# output
+ad_report.csv
+shop_report.csv

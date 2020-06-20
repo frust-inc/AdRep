@@ -20,7 +20,7 @@ WRITER:
     AD_REPORT_CSV_WRITER:
         TYPE: CSV
         PATH: ad_report.csv
-        FILEDNAMES:
+        FIELDNAMES:
             - date
             - time
             - provider
@@ -32,6 +32,20 @@ WRITER:
             - cpc
             - cpm
             - used_budget
+        WRITE_HEADER: True
+    AD_REPORT_CSV_WRITER:
+        TYPE: CSV
+        PATH: shop_report.csv
+        FIELDNAMES:
+            - date
+            - time
+            - provider
+            - regular_sales_num
+            - subs_sales_num
+            - sales_num_sum
+            - regular_sales
+            - subs_sales
+            - sales_sum
         WRITE_HEADER: True
     AD_REPORT_GOOGLE_SPREAD_SHEET_WRITER:
         TYPE: GOOGLE_SPREAD_SHEET
@@ -64,3 +78,30 @@ WRITER:
             cpc: クリック単価
             cpm: インプレッション単価
             used_budget: 消化予算
+    SHOP_REPORT_GOOGLE_SPREAD_SHEET_WRITER:
+        TYPE: GOOGLE_SPREAD_SHEET
+        CREDENTIALS_PATH: "{dummy-credentials-path}"
+        FOLDER_ID: "{dummy-folder-id}"
+        SPREADSHEET_NAME: 広告費・売上レポート_%Y_%m
+        SHEET_NAME: 売上
+        SHEET_RANGE: A1:H
+        FIELDNAMES:
+            - date
+            - time
+            - provider
+            - regular_sales_num
+            - subs_sales_num
+            - sales_num_sum
+            - regular_sales
+            - subs_sales
+            - sales_sum
+        HEADERS:
+            date: 配信日
+            time: 集計時間
+            provider: 媒体
+            regular_sales_num: 売上件数（通常）
+            subs_sales_num: 売上件数（定期）
+            sales_num_sum: 件数合計
+            regular_sales: 売上（通常）
+            subs_sales: 売上（定期）
+            sales_sum: 売上合計
