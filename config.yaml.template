@@ -35,7 +35,7 @@ WRITER:
             - cpm
             - used_budget
         WRITE_HEADER: True
-    AD_REPORT_CSV_WRITER:
+    SHOP_REPORT_CSV_WRITER:
         TYPE: CSV
         PATH: shop_report.csv
         FIELDNAMES:
