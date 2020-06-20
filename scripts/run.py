@@ -34,7 +34,7 @@ def fetch_and_update_shop_report(config):
     reports = []
     for shop in shops:
         with shop.fetch() as response:
-            reports += shop.build_reports(response.data)
+            reports += shop.build_reports(response.data, time='9:00')
 
     writer_conf = config['WRITER'][config['SHOP']['OUTPUT']['WRITER']]
     with WriterBuilder(config=writer_conf).build() as writer:
