@@ -18,7 +18,7 @@ class TamagoRepeat(BaseProvider):
     def build_reports(self, data, **kwargs):
         return [
             ShopReport(
-                name='tamago_repeat',
+                name='たまごリピート',
                 date=data['date'],
                 time=kwargs['time'],
                 regular_sales_num=data['regular_sales_num'],
