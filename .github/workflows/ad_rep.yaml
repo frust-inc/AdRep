@@ -23,7 +23,7 @@ jobs:
         pipenv install --dev
     - name: Add env vars
       run: |
-          echo "::set-env name=PYTHONPATH::home/runner/work/AdRep/AdRep"
+          echo "::set-env name=PYTHONPATH::/home/runner/work/AdRep/AdRep"
     - name: Test with pytest
       run: |
         pipenv run pytest --flake8
