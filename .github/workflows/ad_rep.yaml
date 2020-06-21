@@ -22,4 +22,4 @@ jobs:
         pip install pipenv --upgrade-strategy=only-if-needed
     - name: Test with pytest
       run: |
-        pytest --flake8
+        pipenv run pytest --flake8
