@@ -1,4 +1,4 @@
-https://github.com/frust-inc/AdRep/workflows/AdRep/badge.svg
+![](https://github.com/frust-inc/AdRep/workflows/AdRep/badge.svg)
 
 # AdRep
 
