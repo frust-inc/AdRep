@@ -23,28 +23,24 @@ class GoogleAds(BaseProvider):
         ga_service = client.get_service('GoogleAdsService', version='v3')
 
         query = (
-                'SELECT campaign.id, campaign.name, metrics.impressions, metrics.clicks , metrics.conversions '
-                'FROM campaign'
+                'SELECT metrics.impressions, metrics.clicks, metrics.conversions, metrics.cost_micros '
+                'FROM customer'
                 )
 
         response = ga_service.search_stream(customer_id, query) 
 
-        ret_data=[]
-
         try:
             for batch in response:
                 for row in batch.results:
-                    campaign = row.campaign
                     metrics = row.metrics
 
-                    ret_data += [{
-                                'campaign': campaign.name.value,
+                    ret_data = {
                                 'date':'YYYY/MM/DD',
                                 'impression': metrics.impressions.value,
                                 'click': metrics.clicks.value,
                                 'conversion': metrics.all_conversions_value.value,
-                                'used_budget': 0,
-                                }]
+                                'used_budget': metrics.cost_micros.value,
+                                }
             ret_state='ok'
 
         except google.ads.google_ads.errors.GoogleAdsException as ex:
@@ -55,32 +51,30 @@ class GoogleAds(BaseProvider):
                 if error.location:
                     for field_path_element in error.location.field_path_elements:
                         print('\t\tOn field: %s' % field_path_element.field_name)
-            ret_data += [{
-                        'campaign': '---',
+            ret_data += {
                         'date': '0000/00/00',
                         'impression': -1,
                         'click': -1,
                         'conversion': -1,
                         'used_budget': -1,
-                        }]
+                        }
             ret_state='ng'
 
         return GoogleAdsResponse(ret_state, ret_data)
 
     def build_reports(self, data, **kwargs):
-        ret_data = []
-        for row in data:
-            ret_data += [
-                        AdReport(
-                            date=row['date'],
-                            time=kwargs['time'],
-                            name='google '+row['campaign'],
-                            impression=row['impression'],
-                            click=row['click'],
-                            conversion=row['conversion'],
-                            used_budget=row['used_budget'],
-                            )
-                        ]
+    
+        ret_data = [
+                    AdReport(
+                        date=data['date'],
+                        time=kwargs['time'],
+                        name='google',
+                        impression=data['impression'],
+                        click=data['click'],
+                        conversion=data['conversion'],
+                        used_budget=data['used_budget'],
+                        )
+                    ]
 
         return ret_data
 
