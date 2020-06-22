@@ -70,6 +70,7 @@ class GoogleAds(BaseProvider):
                         date=data['date'],
                         time=kwargs['time'],
                         name='google',
+                        format_='DISPLAY',
                         impression=data['impression'],
                         click=data['click'],
                         conversion=data['conversion'],

@@ -13,8 +13,8 @@ class CSVWriter(BaseWriter):
         else:
             raise ValueError('PATH must be specified in config.')
 
-        if 'FILEDNAMES' in config:
-            self.fieldnames = config['FILEDNAMES']
+        if 'FIELDNAMES' in config:
+            self.fieldnames = config['FIELDNAMES']
         else:
             raise ValueError('FIELDNAMES must be specified in config.')
 
