@@ -29,8 +29,7 @@ class BaseGoogleService(BaseService):
         if not self._service:
             service = self.build()
             self._service = service
-        else:
-            return self._service
+        return self._service
 
     def build(self):
         token_name = self.__class__.token_name
