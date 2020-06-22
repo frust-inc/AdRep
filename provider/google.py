@@ -24,7 +24,8 @@ class GoogleAds(BaseProvider):
 
         query = (
                 'SELECT metrics.impressions, metrics.clicks, metrics.conversions, metrics.cost_micros '
-                'FROM customer'
+                'FROM customer '
+                'WHERE segments.date DURING TODAY '
                 )
 
         response = ga_service.search_stream(customer_id, query) 
@@ -51,7 +52,7 @@ class GoogleAds(BaseProvider):
                 if error.location:
                     for field_path_element in error.location.field_path_elements:
                         print('\t\tOn field: %s' % field_path_element.field_name)
-            ret_data += {
+            ret_data = {
                         'date': '0000/00/00',
                         'impression': -1,
                         'click': -1,
