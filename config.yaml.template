@@ -26,6 +26,7 @@ WRITER:
             - date
             - time
             - provider
+            - format
             - impression
             - click
             - conversion
@@ -60,6 +61,7 @@ WRITER:
             - date
             - time
             - provider
+            - format
             - impression
             - click
             - conversion
@@ -72,6 +74,7 @@ WRITER:
             date: 配信日
             time: 集計時間
             provider: 媒体
+            format: フォーマット
             impression: インプレッション数
             click: クリック数
             conversion: コンバージョン数

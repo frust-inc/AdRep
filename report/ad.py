@@ -2,12 +2,13 @@ from .base import BaseReport
 
 
 class AdReport(BaseReport):
-    def __init__(self, date='', time='', name='', impression=0,
+    def __init__(self, date='', time='', name='', format_='', impression=0,
                  click=0, conversion=0, used_budget=0):
         super(AdReport, self).__init__()
-        self.name = name
         self.date = date
         self.time = time
+        self.name = name
+        self.format_ = format_
         self.impression = impression
         self.click = click
         self.conversion = conversion
@@ -39,9 +40,10 @@ class AdReport(BaseReport):
 
     def to_dict(self):
         return {
-            'provider': self.name,
             'date': self.date,
             'time': self.time,
+            'provider': self.name,
+            'format': self.format_,
             'impression': self.impression,
             'click': self.click,
             'conversion': self.conversion,
