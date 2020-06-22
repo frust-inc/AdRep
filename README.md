@@ -39,7 +39,7 @@ When you update report between `2020/06/01` and `2020/06/02`
 $ run.py --start-date 2020/06/01 --end-date 2020/06/02
 ```
 
-When you update report between 10 days and yesterday.
+When you update report between 10 days ago and yesterday.
 
 ```
 $ run.py --start-days-before 10 --end-days-before 1

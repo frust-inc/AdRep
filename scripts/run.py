@@ -61,7 +61,7 @@ if __name__ == "__main__":
     $ run.py --start-date 2020/06/01 --end-date 2020/06/02
 
     run.py --start-days-before [start-days-before] --end-days-before [end-days-before]
-    e.g. when you update report between 10 days and yesterday.
+    e.g. when you update report between 10 days ago and yesterday.
     $ run.py --start-days-before 10 --end-days-before 1
     """
     fire.Fire(main)
