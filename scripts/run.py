@@ -17,7 +17,6 @@ def main(start_date=datetime.date.today(), end_date=datetime.date.today(),
 
     config = load_config("config.yaml")
     while start_date <= end_date:
-        print(start_date)
         fetch_and_update_ad_report(config, start_date)
         fetch_and_update_shop_report(config, start_date)
         start_date += datetime.timedelta(days=1)
