@@ -51,7 +51,7 @@ class BaseGoogleService(BaseService):
             with open(token_name, 'wb') as token:
                 pickle.dump(creds, token)
 
-        return build(self.api, self.version, credentials=creds)
+        return build(self.api, self.version, credentials=creds, cache_discovery=False)
 
     def get(self):
         return self.service
