@@ -1,13 +1,17 @@
 import datetime
 import fire
+import logging
 
 from config import load_config
+from logger import init_logger
 from provider import GoogleAds, TamagoRepeat
 from writer import WriterBuilder
 
 
 def main(start_date=datetime.date.today(), end_date=datetime.date.today(),
          start_days_before=0, end_days_before=0):
+    config = load_config("config.yaml")
+    init_logger(config["LOGGER"])
 
     if type(start_date) == str:
         start_date = datetime.datetime.strptime(start_date, "%Y/%m/%d")
@@ -15,8 +19,8 @@ def main(start_date=datetime.date.today(), end_date=datetime.date.today(),
     start_date = start_date - datetime.timedelta(days=start_days_before)
     end_date = end_date - datetime.timedelta(days=end_days_before)
 
-    config = load_config("config.yaml")
     while start_date <= end_date:
+        logging.info("Fetch and update report ({})".format(start_date))
         fetch_and_update_ad_report(config, start_date)
         fetch_and_update_shop_report(config, start_date)
         start_date += datetime.timedelta(days=1)
