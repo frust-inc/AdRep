@@ -6,7 +6,7 @@ class BaseProvider(metaclass=ABCMeta):
         self.config = config
 
     @abstractmethod
-    def fetch(self):
+    def fetch(self, target_date):
         return
 
     @abstractmethod
