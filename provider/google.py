@@ -25,7 +25,7 @@ class GoogleAds(BaseProvider):
         ga_service = client.get_service('GoogleAdsService', version='v3')
 
         # query request
-        query_target_date = target_date.strftime('\'%Y-%m-%d\'')
+        target_date_str = target_date.strftime('%Y-%m-%d')
         query = (
                 'SELECT campaign.advertising_channel_type,'
                 '       metrics.impressions,'
@@ -33,7 +33,7 @@ class GoogleAds(BaseProvider):
                 '       metrics.conversions,'
                 '       metrics.cost_micros '
                 'FROM   campaign '
-                'WHERE  segments.date = ' + query_target_date
+                'WHERE  segments.date = \'{target_date}\''.format(target_date=target_date_str)
                 )
 
         response = ga_service.search_stream(customer_id, query)
