@@ -10,7 +10,10 @@ AD:
         YAHOO:
             TOKEN: "{yahoo-dummy-token}"
         FACEBOOK:
-            TOKEN: "{facebook-dummy-token}"
+            ACCESS_TOKEN: "{dummy}"
+            APP_ID: "{dummy}"
+            APP_SECRET: "{dummy}"
+            AD_ACCOUNT_ID: "{dummy}"
     OUTPUT:
         WRITER: AD_REPORT_CSV_WRITER
 SHOP:
