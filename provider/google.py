@@ -8,7 +8,7 @@ class GoogleAds(BaseProvider):
     def __init__(self, config=None):
         super(GoogleAds, self).__init__(config=config)
 
-    def fetch(self):
+    def fetch(self, target_date):
         # googleads init
         credentials = {
             'developer_token': self.config['DEVELOPER_TOKEN'],
@@ -25,6 +25,7 @@ class GoogleAds(BaseProvider):
         ga_service = client.get_service('GoogleAdsService', version='v3')
 
         # query request
+        query_target_date = target_date.strftime('\'%Y-%m-%d\'')
         query = (
                 'SELECT campaign.advertising_channel_type,'
                 '       metrics.impressions,'
@@ -32,7 +33,7 @@ class GoogleAds(BaseProvider):
                 '       metrics.conversions,'
                 '       metrics.cost_micros '
                 'FROM   campaign '
-                'WHERE  segments.date DURING TODAY '
+                'WHERE  segments.date = ' + query_target_date
                 )
 
         response = ga_service.search_stream(customer_id, query)
@@ -45,7 +46,7 @@ class GoogleAds(BaseProvider):
                     campaign = row.campaign
 
                     ret_data.append({
-                                'date': 'YYYY/MM/DD',
+                                'date': target_date.strftime('%Y/%m/%d'),
                                 'format': get_type.Name(campaign.advertising_channel_type),
                                 'impression': metrics.impressions.value,
                                 'click': metrics.clicks.value,
@@ -62,13 +63,6 @@ class GoogleAds(BaseProvider):
                 if error.location:
                     for field_path_element in error.location.field_path_elements:
                         print('\t\tOn field: %s' % field_path_element.field_name)
-            ret_data = [{
-                        'date': '0000/00/00',
-                        'impression': -1,
-                        'click': -1,
-                        'conversion': -1,
-                        'used_budget': -1,
-                        }]
             ret_state = 'ng'
 
         return GoogleAdsResponse(ret_state, ret_data)

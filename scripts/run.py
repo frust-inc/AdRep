@@ -31,7 +31,7 @@ def fetch_and_update_ad_report(config, target_date):
 
     reports = []
     for provider in providers:
-        with provider.fetch() as response:
+        with provider.fetch(target_date) as response:
             reports += provider.build_reports(response.data, time='9:00')
 
     writer_conf = config['WRITER'][config['AD']['OUTPUT']['WRITER']]
