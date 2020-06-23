@@ -115,3 +115,7 @@ WRITER:
             regular_sales: 売上（通常）
             subs_sales: 売上（定期）
             sales_sum: 売上合計
+LOGGER:
+    LOG_LEVEL: INFO
+    LOG_PATH: logs
+    FORMAT: "[%(levelname)s] %(asctime)s: %(message)s"
