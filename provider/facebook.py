@@ -35,7 +35,7 @@ class Facebook(BaseProvider):
         response = my_account.get_insights(fields=fields, params=params)
 
         # dummy response for develop
-        dummy_response = {
+        response = {
                 "data": [
                     {
                         "impressions": "200",
@@ -61,7 +61,7 @@ class Facebook(BaseProvider):
                 }
 
         ret = []
-        for row in dummy_response['data']:
+        for row in response['data']:
             ret.append({
                 'date': row['date_stop'],
                 'format': 'format',
