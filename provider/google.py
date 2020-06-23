@@ -1,5 +1,6 @@
 from .base import BaseProvider, BaseResponse
 from report import AdReport
+from collections import defaultdict
 import google.ads.google_ads.client
 
 
@@ -8,6 +9,7 @@ class GoogleAds(BaseProvider):
         super(GoogleAds, self).__init__(config=config)
 
     def fetch(self):
+        # googleads init
         credentials = {
             'developer_token': self.config['DEVELOPER_TOKEN'],
             'refresh_token': self.config['REFRESH_TOKEN'],
@@ -17,31 +19,39 @@ class GoogleAds(BaseProvider):
             }
 
         client = google.ads.google_ads.client.GoogleAdsClient.load_from_dict(credentials)
+        get_type = client.get_type('AdvertisingChannelTypeEnum').AdvertisingChannelType
 
         customer_id = self.config['CLIENT_CUSTOMER_ID']
         ga_service = client.get_service('GoogleAdsService', version='v3')
 
+        # query request
         query = (
-                'SELECT metrics.impressions, metrics.clicks, '
-                'metrics.conversions, metrics.cost_micros '
-                'FROM customer '
-                'WHERE segments.date DURING TODAY '
+                'SELECT campaign.advertising_channel_type,'
+                '       metrics.impressions,'
+                '       metrics.clicks,'
+                '       metrics.conversions,'
+                '       metrics.cost_micros '
+                'FROM   campaign '
+                'WHERE  segments.date DURING TODAY '
                 )
 
         response = ga_service.search_stream(customer_id, query)
 
+        ret_data = []
         try:
             for batch in response:
                 for row in batch.results:
                     metrics = row.metrics
+                    campaign = row.campaign
 
-                    ret_data = {
+                    ret_data.append({
                                 'date': 'YYYY/MM/DD',
+                                'format': get_type.Name(campaign.advertising_channel_type),
                                 'impression': metrics.impressions.value,
                                 'click': metrics.clicks.value,
                                 'conversion': metrics.all_conversions_value.value,
                                 'used_budget': metrics.cost_micros.value,
-                                }
+                                })
             ret_state = 'ok'
 
         except google.ads.google_ads.errors.GoogleAdsException as ex:
@@ -52,33 +62,46 @@ class GoogleAds(BaseProvider):
                 if error.location:
                     for field_path_element in error.location.field_path_elements:
                         print('\t\tOn field: %s' % field_path_element.field_name)
-            ret_data = {
+            ret_data = [{
                         'date': '0000/00/00',
                         'impression': -1,
                         'click': -1,
                         'conversion': -1,
                         'used_budget': -1,
-                        }
+                        }]
             ret_state = 'ng'
 
         return GoogleAdsResponse(ret_state, ret_data)
 
     def build_reports(self, data, **kwargs):
 
-        ret_data = [
+        # sum metrics data
+        # and holds the date
+        ddict = defaultdict(lambda: defaultdict(int))
+        for row in data:
+            ddict[row['format']]['date'] = row['date']
+            ddict[row['format']]['impression'] += row['impression']
+            ddict[row['format']]['click'] += row['click']
+            ddict[row['format']]['conversion'] += row['conversion']
+            ddict[row['format']]['used_budget'] += row['used_budget']
+
+        # creates the report
+        ret = []
+        for key, value in ddict.items():
+            ret.append(
                     AdReport(
-                        date=data['date'],
+                        date=value['date'],
                         time=kwargs['time'],
                         name='google',
-                        format_='DISPLAY',
-                        impression=data['impression'],
-                        click=data['click'],
-                        conversion=data['conversion'],
-                        used_budget=data['used_budget'],
+                        format_=key,
+                        impression=value['impression'],
+                        click=value['click'],
+                        conversion=value['conversion'],
+                        used_budget=value['used_budget'],
                         )
-                    ]
+                    )
 
-        return ret_data
+        return ret
 
 
 class GoogleAdsResponse(BaseResponse):
