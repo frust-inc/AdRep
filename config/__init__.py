@@ -1,8 +1,6 @@
-import logging
 import yaml
 import os
 import re
-
 
 HAS_PLACEHOLDER = re.compile(r'{{([\s]*[a-zA-Z0-9_-]+[\s]*)}}')
 INNER_STRING = re.compile(r'[a-zA-Z0-9_-]+')
@@ -11,46 +9,44 @@ INNER_STRING = re.compile(r'[a-zA-Z0-9_-]+')
 def load_config(path):
     with open(path, 'r') as f:
         config = yaml.load(f, Loader=yaml.SafeLoader)
-        logging.debug("Original config: {}".format(config))
-        if type(config) == dict:
-            config = parse_dict(config)
-        elif type(config) == list:
-            config = parse_list(config)
-        elif type(config) == str:
-            config = replace_with_env_var(config)
-        logging.debug("Replaced config: {}".format(config))
+        if isinstance(config, dict):
+            config = _parse_dict(config)
+        elif isinstance(config, list):
+            config = _parse_list(config)
+        elif isinstance(config, str):
+            config = _replace_with_env_var(config)
         return config
 
 
-def parse_dict(dic):
+def _parse_dict(dic):
     ret = {}
     for key, value in dic.items():
-        if type(value) == dict:
-            ret[key] = parse_dict(value)
-        elif type(value) == list:
-            ret[key] = parse_list(value)
-        elif type(value) == str:
-            ret[key] = replace_with_env_var(value)
+        if isinstance(value, dict):
+            ret[key] = _parse_dict(value)
+        elif isinstance(value, list):
+            ret[key] = _parse_list(value)
+        elif isinstance(value, str):
+            ret[key] = _replace_with_env_var(value)
         else:
             ret[key] = value
     return ret
 
 
-def parse_list(lis):
+def _parse_list(lis):
     ret = []
     for value in lis:
-        if type(value) == dict:
-            ret.append(parse_dict(value))
-        elif type(value) == list:
-            ret.append(parse_list(value))
-        elif type(value) == str:
-            ret.append(replace_with_env_var(value))
+        if isinstance(value, dict):
+            ret.append(_parse_dict(value))
+        elif isinstance(value, list):
+            ret.append(_parse_list(value))
+        elif isinstance(value, str):
+            ret.append(_replace_with_env_var(value))
         else:
             ret.append(value)
     return ret
 
 
-def replace_with_env_var(value):
+def _replace_with_env_var(value):
     matched = re.match(HAS_PLACEHOLDER, value)
     if matched:
         r = re.search(INNER_STRING, value)
