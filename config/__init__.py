@@ -9,6 +9,10 @@ INNER_STRING = re.compile(r'[a-zA-Z0-9_-]+')
 def load_config(path):
     with open(path, 'r') as f:
         config = yaml.load(f, Loader=yaml.SafeLoader)
+        return _parse_and_replace(config)
+
+
+def _parse_and_replace(config):
         if isinstance(config, dict):
             config = _parse_dict(config)
         elif isinstance(config, list):
