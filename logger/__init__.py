@@ -1,6 +1,5 @@
 import logging
 import os
-from datetime import datetime
 
 
 def init_logger(config):
