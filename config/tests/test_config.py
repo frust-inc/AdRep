@@ -43,4 +43,3 @@ def test_parse_and_replace():
 
     with mock.patch('os.environ.get', return_value='EXPECTED'):
         assert _parse_and_replace(config) == expected
-

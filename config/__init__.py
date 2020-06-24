@@ -13,13 +13,13 @@ def load_config(path):
 
 
 def _parse_and_replace(config):
-        if isinstance(config, dict):
-            config = _parse_dict(config)
-        elif isinstance(config, list):
-            config = _parse_list(config)
-        elif isinstance(config, str):
-            config = _replace_with_env_var(config)
-        return config
+    if isinstance(config, dict):
+        config = _parse_dict(config)
+    elif isinstance(config, list):
+        config = _parse_list(config)
+    elif isinstance(config, str):
+        config = _replace_with_env_var(config)
+    return config
 
 
 def _parse_dict(dic):
