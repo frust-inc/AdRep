@@ -1,27 +1,27 @@
 AD:
     INPUT:
         GOOGLE:
-            CLIENT_ID: "{dummy}"
-            CLIENT_SECRET: "{dummy}"
-            REFRESH_TOKEN: "{dummy}"
-            DEVELOPER_TOKEN: "{dummy}"
-            MCC_CUSTOMER_ID: "{dummy}"
-            CLIENT_CUSTOMER_ID: "{dummy}"
+            CLIENT_ID: "{{ GOOGLE_CLIENT_ID }}"
+            CLIENT_SECRET: "{{ GOOGLE_CLIENT_SECRET }}"
+            REFRESH_TOKEN: "{{ GOOGLE_REFRESH_TOKEN }}"
+            DEVELOPER_TOKEN: "{{ GOOGLE_DEVELOPER_TOKEN }}"
+            MCC_CUSTOMER_ID: "{{ GOOGLE_MCC_CUSTOMER_ID }}"
+            CLIENT_CUSTOMER_ID: "{{ GOOGLE_CLIENT_CUSTOMER_ID }}"
         YAHOO:
-            TOKEN: "{yahoo-dummy-token}"
+            TOKEN: "{{ YAHOO_TOKEN }}"
         FACEBOOK:
-            ACCESS_TOKEN: "{dummy}"
-            APP_ID: "{dummy}"
-            APP_SECRET: "{dummy}"
-            AD_ACCOUNT_ID: "{dummy}"
+            ACCESS_TOKEN: "{{ FACEBOOK_ACCESS_TOKEN }}"
+            APP_ID: "{{ FACEBOOK_APP_ID }}"
+            APP_SECRET: "{{ FACEBOOK_APP_SECRET }}"
+            AD_ACCOUNT_ID: "{{ FACEBOOK_AD_ACCOUNT_ID }}"
     OUTPUT:
-        WRITER: AD_REPORT_CSV_WRITER
+        WRITER: STDOUT_WRITER
 SHOP:
     INPUT:
         TAMAGO_REPEAT:
-            TOKEN: "{tamago-repeat-token}"
+            TOKEN: "{{ TAMAGO_REPEAT_TOKEN }}"
     OUTPUT:
-        WRITER: SHOP_REPORT_CSV_WRIER
+        WRITER: STDOUT_WRITER
 WRITER:
     STDOUT_WRITER:
         TYPE: STDOUT
@@ -60,8 +60,8 @@ WRITER:
         WRITE_HEADER: True
     AD_REPORT_GOOGLE_SPREAD_SHEET_WRITER:
         TYPE: GOOGLE_SPREAD_SHEET
-        CREDENTIALS_PATH: "{dummy-credentials-path}"
-        FOLDER_ID: "{dummy-folder-id}"
+        CREDENTIALS_PATH: "{{ GOOGLE_CREDENTIALS_PATH }}"
+        FOLDER_ID: "{{ GOOGLE_DRIVE_FOLDER_ID }}"
         SPREADSHEET_NAME: 広告費・売上レポート_%Y_%m
         SHEET_NAME: 広告費
         SHEET_RANGE: A1:H
@@ -93,8 +93,8 @@ WRITER:
             used_budget: 消化予算
     SHOP_REPORT_GOOGLE_SPREAD_SHEET_WRITER:
         TYPE: GOOGLE_SPREAD_SHEET
-        CREDENTIALS_PATH: "{dummy-credentials-path}"
-        FOLDER_ID: "{dummy-folder-id}"
+        CREDENTIALS_PATH: "{{ GOOGLE_CREDENTIALS_PATH }}"
+        FOLDER_ID: "{{ GOOGLE_DRIVE_FOLDER_ID }}"
         SPREADSHEET_NAME: 広告費・売上レポート_%Y_%m
         SHEET_NAME: 売上
         SHEET_RANGE: A1:H
