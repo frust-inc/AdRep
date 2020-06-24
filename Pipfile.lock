@@ -1,7 +1,7 @@
 {
     "_meta": {
         "hash": {
-            "sha256": "d70a4674b5405735c89f34032341044661bf7505e9a0193b556cdc9f29634ee7"
+            "sha256": "4deff801ae276848969841a9db1363ce88f99fe79b4fae383ff1297d32ad7364"
         },
         "pipfile-spec": 6,
         "requires": {
@@ -43,6 +43,20 @@
                 "sha256:fc323ffcaeaed0e0a02bf4d117757b98aed530d9ed4531e3e15460124c106691"
             ],
             "version": "==3.0.4"
+        },
+        "curlify": {
+            "hashes": [
+                "sha256:0d3f02e7235faf952de8ef45ef469845196d30632d5838bcd5aee217726ddd6d"
+            ],
+            "version": "==2.2.1"
+        },
+        "facebook-business": {
+            "hashes": [
+                "sha256:021a5df857a6f44d8ae451b0869806fa93340e5fc5dd9a109c88b131d496539b",
+                "sha256:888f613d362e9e7d40a5a7e4e8d4c7ed4eee531577eb50ec06064e3a92770b80"
+            ],
+            "index": "pypi",
+            "version": "==7.0.3"
         },
         "fire": {
             "hashes": [
@@ -175,6 +189,13 @@
             ],
             "version": "==0.6.1"
         },
+        "mock": {
+            "hashes": [
+                "sha256:3f9b2c0196c60d21838f307f5825a7b86b678cedc58ab9e50a8988187b4d81e0",
+                "sha256:dd33eb70232b6118298d516bbcecd26704689c386594f0f3c4f13867b2c56f72"
+            ],
+            "version": "==4.0.2"
+        },
         "more-itertools": {
             "hashes": [
                 "sha256:68c70cc7167bdf5c7c9d8f6954a7837089c6a36bf565383919bb595efb8a17e5",
@@ -253,6 +274,12 @@
                 "sha256:c58a7d2815e0e8d7972bf1803331fb0152f867bd89adf8a01dfd55085434192e"
             ],
             "version": "==2.6.0"
+        },
+        "pycountry": {
+            "hashes": [
+                "sha256:3c57aa40adcf293d59bebaffbe60d8c39976fba78d846a018dc0c2ec9c6cb3cb"
+            ],
+            "version": "==19.8.18"
         },
         "pyflakes": {
             "hashes": [

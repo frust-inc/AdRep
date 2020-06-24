@@ -4,7 +4,7 @@ import logging
 
 from config import load_config
 from logger import init_logger
-from provider import GoogleAds, TamagoRepeat
+from provider import GoogleAds, Facebook, TamagoRepeat
 from writer import WriterBuilder
 
 
@@ -29,7 +29,7 @@ def main(start_date=datetime.date.today(), end_date=datetime.date.today(),
 def fetch_and_update_ad_report(config, target_date):
     providers = [
         GoogleAds(config=config['AD']['INPUT']['GOOGLE']),
-        # Facebook(config=config['AD']['FACEBOOK']),
+        Facebook(config=config['AD']['INPUT']['FACEBOOK']),
         # Yahoo(config=config['AD']['YAHOO']),
     ]
 
