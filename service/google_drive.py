@@ -5,8 +5,8 @@ class GoogleDriveService(BaseGoogleService):
     token_name = 'drive.token.pickle'
     scopes = ['https://www.googleapis.com/auth/drive']
 
-    def __init__(self, credentials_path):
-        super(GoogleDriveService, self).__init__(credentials_path, 'drive', 'v3')
+    def __init__(self, encoded_sa_key):
+        super(GoogleDriveService, self).__init__(encoded_sa_key, 'drive', 'v3')
 
     def list_files(self, parents=None):
         page_token = None

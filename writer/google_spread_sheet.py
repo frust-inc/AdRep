@@ -29,10 +29,10 @@ class GoogleSpreadSheetWriter(BaseWriter):
         else:
             raise ValueError("SHEET_RANGE must be specified.")
 
-        if "CREDENTIALS_PATH" in config:
-            self.credentials_path = config["CREDENTIALS_PATH"]
+        if "SA_KEY" in config:
+            self.encoded_sa_key = config["SA_KEY"]
         else:
-            raise ValueError("CREDENTIALS_PATH must be specified.")
+            raise ValueError("SA_KEY must be specified.")
 
         if "FIELDNAMES" in config:
             self.fieldnames = config["FIELDNAMES"]
@@ -47,8 +47,8 @@ class GoogleSpreadSheetWriter(BaseWriter):
         self.value_input_option = 'USER_ENTERED'
         self.insert_data_option = 'OVERWRITE'
 
-        self.sheet_service = GoogleSpreadSheetService(self.credentials_path)
-        self.drive_service = GoogleDriveService(self.credentials_path)
+        self.sheet_service = GoogleSpreadSheetService(self.encoded_sa_key)
+        self.drive_service = GoogleDriveService(self.encoded_sa_key)
 
     def _headers(self):
         return [self.headers[key] for key in self.fieldnames]

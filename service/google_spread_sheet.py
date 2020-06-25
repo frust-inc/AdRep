@@ -5,8 +5,8 @@ class GoogleSpreadSheetService(BaseGoogleService):
     token_name = 'sheets.token.pickle'
     scopes = ['https://www.googleapis.com/auth/spreadsheets']
 
-    def __init__(self, credentials_path):
-        super(GoogleSpreadSheetService, self).__init__(credentials_path, 'sheets', 'v4')
+    def __init__(self, encoded_sa_key):
+        super(GoogleSpreadSheetService, self).__init__(encoded_sa_key, 'sheets', 'v4')
 
     def add_sheet(self, spreadsheet_id, name):
         return self.service.spreadsheets().batchUpdate(

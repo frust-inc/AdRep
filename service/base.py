@@ -1,9 +1,9 @@
 from abc import ABCMeta, abstractmethod
-import pickle
-import os.path
+import base64
+import json
+
 from googleapiclient.discovery import build
-from google_auth_oauthlib.flow import InstalledAppFlow
-from google.auth.transport.requests import Request
+from oauth2client.service_account import ServiceAccountCredentials
 
 
 class BaseService(metaclass=ABCMeta):
@@ -17,9 +17,9 @@ class BaseGoogleService(BaseService):
     token_name = ''
     scopes = []
 
-    def __init__(self, credentials_path, api, version):
+    def __init__(self, encoded_service_key, api, version):
         super(BaseGoogleService, self).__init__()
-        self.credentials_path = credentials_path
+        self.encoded_service_key = encoded_service_key
         self.api = api
         self.version = version
         self._service = None
@@ -32,24 +32,12 @@ class BaseGoogleService(BaseService):
         return self._service
 
     def build(self):
-        token_name = self.__class__.token_name
-
-        creds = None
-        if os.path.exists(token_name):
-            with open(token_name, 'rb') as token:
-                creds = pickle.load(token)
-
-        # If there are no (valid) credentials available, let the user log in.
-        if not creds or not creds.valid:
-            if creds and creds.expired and creds.refresh_token:
-                creds.refresh(Request())
-            else:
-                flow = InstalledAppFlow.from_client_secrets_file(
-                    self.credentials_path, self.__class__.scopes)
-                creds = flow.run_local_server(port=0)
-            # Save the credentials for the next run
-            with open(token_name, 'wb') as token:
-                pickle.dump(creds, token)
+        service_key_json = base64.decodebytes(self.encoded_service_key.encode())
+        service_key = json.loads(service_key_json)
+        creds = ServiceAccountCredentials.from_json_keyfile_dict(
+            service_key,
+            self.__class__.scopes,
+        )
 
         return build(self.api, self.version, credentials=creds, cache_discovery=False)
 
