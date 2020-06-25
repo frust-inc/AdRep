@@ -29,7 +29,7 @@ def main(start_date=datetime.date.today(), end_date=datetime.date.today(),
 def fetch_and_update_ad_report(config, target_date):
     providers = [
         GoogleAds(config=config['AD']['INPUT']['GOOGLE']),
-        Facebook(config=config['AD']['INPUT']['FACEBOOK']),
+        # Facebook(config=config['AD']['INPUT']['FACEBOOK']),
         # Yahoo(config=config['AD']['YAHOO']),
     ]
 

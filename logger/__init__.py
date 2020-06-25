@@ -1,9 +1,8 @@
 import logging
-import os
 
 
 def init_logger(config):
-    os.makedirs(config["LOG_PATH"], exist_ok=True)
+    # os.makedirs(config["LOG_PATH"], exist_ok=True)
     log_formatter = logging.Formatter(config["FORMAT"])
     root_logger = logging.getLogger()
     root_logger.setLevel(config["LOG_LEVEL"])
