@@ -16,6 +16,7 @@ pytest-flake8 = "*"
 google-ads = "*"
 fire = "*"
 facebook-business = "*"
+oauth2client = "*"
 
 [requires]
 python_version = "3.7"

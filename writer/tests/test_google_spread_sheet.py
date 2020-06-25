@@ -32,7 +32,7 @@ def test_values_with_report():
 
 def get_test_config():
     return {
-        'CREDENTIALS_PATH': "",
+        'SA_KEY': "",
         'FIELDNAMES': [
             "date",
             "time",
