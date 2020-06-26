@@ -39,10 +39,11 @@ def fetch_and_update_ad_report(config, target_date):
         # Yahoo(config=config['AD']['YAHOO']),
     ]
 
+    now = datetime.datetime.now()
     reports = []
     for provider in providers:
         with provider.fetch(target_date) as response:
-            reports += provider.build_reports(response.data, time='9:00')
+            reports += provider.build_reports(response.data, time=now.strftime("%m/%d %H:%M"))
 
     writer_conf = config['WRITER'][config['AD']['OUTPUT']['WRITER']]
     with WriterBuilder(config=writer_conf).build() as writer:
@@ -54,10 +55,11 @@ def fetch_and_update_shop_report(config, target_date):
         TamagoRepeat(config=config['SHOP']['INPUT']['TAMAGO_REPEAT']),
     ]
 
+    now = datetime.datetime.now()
     reports = []
     for shop in shops:
         with shop.fetch() as response:
-            reports += shop.build_reports(response.data, time='9:00')
+            reports += shop.build_reports(response.data, time=now.strftime("%m/%d %H:%M"))
 
     writer_conf = config['WRITER'][config['SHOP']['OUTPUT']['WRITER']]
     with WriterBuilder(config=writer_conf).build() as writer:
