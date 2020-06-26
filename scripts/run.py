@@ -2,8 +2,8 @@ import datetime
 import fire
 import logging
 
-from config import load_config
-from logger import init_logger
+from core.config import load_config
+from core.logger import init_logger
 from provider import GoogleAds, Facebook, TamagoRepeat
 from writer import WriterBuilder
 
