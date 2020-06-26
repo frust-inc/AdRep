@@ -1,7 +1,7 @@
 from datetime import datetime
 
 from .base import BaseWriter
-from service import GoogleSpreadSheetService, GoogleDriveService
+from core.service import GoogleSpreadSheetService, GoogleDriveService
 
 
 class GoogleSpreadSheetWriter(BaseWriter):

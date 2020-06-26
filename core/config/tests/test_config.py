@@ -1,6 +1,6 @@
 import mock
 
-from config import _replace_with_env_var, _parse_and_replace
+from core.config import _replace_with_env_var, _parse_and_replace
 
 
 def test_replace_with_env_var():
