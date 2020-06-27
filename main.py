@@ -1,6 +1,7 @@
 import base64
 import datetime
 import logging
+import pytz
 
 from core.config import load_config
 from core.logger import init_logger
@@ -9,6 +10,7 @@ from writer import WriterBuilder
 
 TODAY = 'TODAY'
 YESTERDAY = 'YESTERDAY'
+JST = pytz.timezone('Asia/Tokyo')
 
 
 def run_triggered_from_pubsub(event, context):
@@ -23,13 +25,13 @@ def run_triggered_from_pubsub(event, context):
     init_logger(config["LOGGER"])
 
     # default today
-    target_date = datetime.date.today()
+    target_date = datetime.datetime.now(JST)
     if pubsub_message == YESTERDAY:
         target_date = target_date - datetime.timedelta(days=1)
 
-    logging.info("Fetch and update report ({})".format(target_date))
-    fetch_and_update_ad_report(config, target_date)
-    fetch_and_update_shop_report(config, target_date)
+    logging.info("Fetch and update report ({})".format(target_date.date()))
+    fetch_and_update_ad_report(config, target_date.date())
+    fetch_and_update_shop_report(config, target_date.date())
 
 
 def fetch_and_update_ad_report(config, target_date):
@@ -39,7 +41,7 @@ def fetch_and_update_ad_report(config, target_date):
         # Yahoo(config=config['AD']['YAHOO']),
     ]
 
-    now = datetime.datetime.now()
+    now = datetime.datetime.now(JST)
     reports = []
     for provider in providers:
         with provider.fetch(target_date) as response:
@@ -55,7 +57,7 @@ def fetch_and_update_shop_report(config, target_date):
         TamagoRepeat(config=config['SHOP']['INPUT']['TAMAGO_REPEAT']),
     ]
 
-    now = datetime.datetime.now()
+    now = datetime.datetime.now(JST)
     reports = []
     for shop in shops:
         with shop.fetch() as response:
