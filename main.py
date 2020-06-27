@@ -31,7 +31,7 @@ def run_triggered_from_pubsub(event, context):
 
     logging.info("Fetch and update report ({})".format(target_date.date()))
     fetch_and_update_ad_report(config, target_date.date())
-    fetch_and_update_shop_report(config, target_date.date()
+    fetch_and_update_shop_report(config, target_date.date())
 
 
 def fetch_and_update_ad_report(config, target_date):
