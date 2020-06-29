@@ -53,6 +53,6 @@ Run pytest and lint by flake8.
 $ pytest --flake8
 ```
 
-## Lisence
+## License
 
 MIT
