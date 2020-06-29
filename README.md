@@ -1,8 +1,33 @@
-![](https://github.com/frust-inc/AdRep/workflows/AdRep/badge.svg)
-
 # AdRep
 
+AdRep is repoting tool for Advertisement providers (e.g. Google, Facebook etc).
+
+## Test Status
+
+![](https://github.com/frust-inc/AdRep/workflows/AdRep/badge.svg)
+
+## Supported Providers
+
+- Google
+- Facebook (Developing)
+- LINE (TBD)
+- YAHOO (TBD)
+- TikTok (TBD)
+
+## Supported Outputs
+
+- Stdout
+- CSV
+- Google Spread Sheet
+
 ## Setup
+
+Clone this repository.
+
+```
+$ git clone git@github.com:frust-inc/AdRep.git
+$ cd AdRep
+```
 
 Install dependency packages.
 
@@ -10,13 +35,14 @@ Install dependency packages.
 $ pipenv install
 ```
 
+
 Copy `config.yaml` from template.
 
 ```
 $ cp config.yaml.template config.yaml
 ```
 
-Edit config if you need.
+Configure provider secrets.
 
 ```
 $ vim config.yaml
