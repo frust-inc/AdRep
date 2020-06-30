@@ -3,8 +3,9 @@ import datetime
 import logging
 import pytz
 
-from core.config import load_config
+from core.config import ConfigLoader
 from core.logger import init_logger
+from core.service import GoogleSecretManager
 from provider import GoogleAds, TamagoRepeat
 from writer import WriterBuilder
 
@@ -21,7 +22,7 @@ def run_triggered_from_pubsub(event, context):
     """
     pubsub_message = base64.b64decode(event['data']).decode('utf-8')
 
-    config = load_config("config_gf.yaml")
+    config = ConfigLoader("config.yaml", GoogleSecretManager("hackacademy-272812")).load()
     init_logger(config["LOGGER"])
 
     # default today
