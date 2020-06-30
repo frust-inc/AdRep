@@ -22,7 +22,7 @@ def run_triggered_from_pubsub(event, context):
     """
     pubsub_message = base64.b64decode(event['data']).decode('utf-8')
 
-    config = ConfigLoader("config.yaml", GoogleSecretManager("hackacademy-272812")).load()
+    config = ConfigLoader("config_gcf.yaml", GoogleSecretManager("hackacademy-272812")).load()
     init_logger(config["LOGGER"])
 
     # default today
