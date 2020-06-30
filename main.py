@@ -3,10 +3,10 @@ import datetime
 import logging
 import pytz
 
+from provider import GoogleAds, TamagoRepeat
 from core.config import ConfigLoader
 from core.logger import init_logger
 from core.service import GoogleSecretManager
-from provider import GoogleAds, TamagoRepeat
 from writer import WriterBuilder
 
 TODAY = 'TODAY'
