@@ -15,7 +15,6 @@ def main(start_date="", end_date="",
          start_days_before=0, end_days_before=0):
     config = ConfigLoader("config.yaml").load()
     init_logger(config["LOGGER"])
-    print(config)
 
     if not start_date:
         start_date = datetime.datetime.now(JST).date()
