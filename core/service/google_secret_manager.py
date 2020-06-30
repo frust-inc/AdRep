@@ -1,4 +1,4 @@
-from google.cloud import secretmanager
+from google import cloud
 from google.api_core.exceptions import NotFound
 import logging
 
@@ -11,7 +11,7 @@ class GoogleSecretManager(BaseService):
         self.project_id = project_id
 
     def build(self):
-        return secretmanager.SecretManagerServiceClient()
+        return cloud.secretmanager.SecretManagerServiceClient()
 
     def get(self, key, version='latest'):
         try:
