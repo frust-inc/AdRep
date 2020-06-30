@@ -28,4 +28,4 @@ jobs:
 
       - name: Deploy Functions
         run: |
-          gcloud functions deploy AdRep --source . --region=asia-northeast1 --trigger-topic=AdRep-topic --runtime=python37 --entry-point=run_triggered_from_pubsub --service-account=${{ secrets.GCP_GCF_SA }} > /dev/null 2>&1
+          gcloud functions deploy AdRep --source . --region=asia-northeast1 --trigger-topic=AdRep-topic --runtime=python37 --entry-point=run_triggered_from_pubsub --service-account=${{ secrets.GCP_GCF_SA }}
