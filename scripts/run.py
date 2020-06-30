@@ -3,7 +3,8 @@ import fire
 import logging
 import pytz
 
-from core.config import load_config
+from core.service import GoogleSecretManager
+from core.config import ConfigLoader
 from core.logger import init_logger
 from provider import GoogleAds, Facebook, TamagoRepeat
 from writer import WriterBuilder
@@ -13,8 +14,9 @@ JST = pytz.timezone('Asia/Tokyo')
 
 def main(start_date="", end_date="",
          start_days_before=0, end_days_before=0):
-    config = load_config("config.yaml")
+    config = ConfigLoader("config.yaml", GoogleSecretManager("hackacademy-272812")).load()
     init_logger(config["LOGGER"])
+    print(config)
 
     if not start_date:
         start_date = datetime.datetime.now(JST).date()

@@ -7,10 +7,19 @@ from oauth2client.service_account import ServiceAccountCredentials
 
 
 class BaseService(metaclass=ABCMeta):
+    def __init__(self):
+        self._service = None
 
     @abstractmethod
     def build(self):
         return
+
+    @property
+    def service(self):
+        if not self._service:
+            service = self.build()
+            self._service = service
+        return self._service
 
 
 class BaseGoogleService(BaseService):
@@ -22,14 +31,6 @@ class BaseGoogleService(BaseService):
         self.encoded_service_key = encoded_service_key
         self.api = api
         self.version = version
-        self._service = None
-
-    @property
-    def service(self):
-        if not self._service:
-            service = self.build()
-            self._service = service
-        return self._service
 
     def build(self):
         service_key_json = base64.decodebytes(self.encoded_service_key.encode())
