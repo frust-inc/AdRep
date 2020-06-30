@@ -17,6 +17,7 @@ google-ads = "*"
 fire = "*"
 facebook-business = "*"
 oauth2client = "*"
+google-cloud-secret-manager = "*"
 
 [requires]
 python_version = "3.7"
