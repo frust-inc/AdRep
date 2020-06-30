@@ -15,13 +15,13 @@ AD:
             APP_SECRET: "{{ SECRET:FACEBOOK_APP_SECRET }}"
             AD_ACCOUNT_ID: "{{ SECRET:FACEBOOK_AD_ACCOUNT_ID }}"
     OUTPUT:
-        WRITER: "{{ AD_WRITER }}"
+        WRITER: "{{ ENV:AD_WRITER }}"
 SHOP:
     INPUT:
         TAMAGO_REPEAT:
             TOKEN: "{{ TAMAGO_REPEAT_TOKEN }}"
     OUTPUT:
-        WRITER: "{{ SHOP_WRITER }}"
+        WRITER: "{{ ENV:SHOP_WRITER }}"
 WRITER:
     STDOUT_WRITER:
         TYPE: STDOUT
@@ -122,5 +122,3 @@ LOGGER:
     LOG_LEVEL: INFO
     LOG_PATH: logs
     FORMAT: "[%(levelname)s] %(asctime)s: %(message)s"
-SECRET:
-    PROJECT_ID: {{ GCP_PROJECT_ID }}
